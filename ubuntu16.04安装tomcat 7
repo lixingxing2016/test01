@@ -1,0 +1,53 @@
+Ubuntu 16.04 安装Tomcat7.0（jdk8）
+
+通过ftp将下载的tomcat8.5.9压缩包上传到ubuntu服务器，配置VSFTPD可以参看《在Ubuntu16.04下配置VSFTPD》，然后这里我使用的是Xftp 5作为windows下使用的FTP客户端。上传完成后，进入该文件目录，使用如下命令解压：
+
+sudo tar -zxvf apache-tomcat-8.5.9.tar.gz
+
+解压成功后可以看到该目录下多出了文件夹apache-tomcat-8.5.9： 
+
+先在/usr下新建文件夹tomcat，然后将文件夹apache-tomcat-8.5.9移动到目录/usr/tomcat下：
+
+sudo mv apache-tomcat-8.5.9 /usr/tomcat/
+
+进入目录/usr/tomcat可以查看到该文件夹，说明移动成功：
+
+现在先修改一下tomcat文件夹的使用权限，否则可能在当前用户下不能进入bin目录：
+
+cd /usr
+
+sudo chmod 755 -R tomcat
+
+然后进入目录/usr/tomcat/apache-tomcat-8.5.9/bin，编辑文件startup.sh，在最后一行之前加入如下信息：
+
+
+
+export JAVA_HOME=/usr/java/jdk1.8.0_111
+
+export JRE_HOME=${JAVA_HOME}/jre
+
+export CLASSPATH=.:%{JAVA_HOME}/lib:%{JRE_HOME}/lib
+
+export PATH={JAVA_HOME}/bin:PATH
+
+export TOMCAT_HOME=/usr/tomcat/apache-tomcat-8.5.9
+
+其中JAVA_HOME和TOMCAT_HOME请对应你自己的jdk和tomcat的安装目录。编辑完后保存退出，然后运行startup.sh：
+
+sudo ./startup.sh
+
+如果要关闭tomcat，类似的，需要先在文件shutdown.sh对应位置添加信息：
+
+export JAVA_HOME=/usr/java/jdk1.8.0_111
+
+export JRE_HOME=${JAVA_HOME}/jre
+
+export CLASSPATH=.:%{JAVA_HOME}/lib:%{JRE_HOME}/lib
+
+export PATH={JAVA_HOME}/bin:PATH
+
+export TOMCAT_HOME=/usr/tomcat/apache-tomcat-8.5.9
+
+然后执行如下命令即可：
+
+sudo ./shutdown.sh
