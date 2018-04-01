@@ -51,3 +51,11 @@ export TOMCAT_HOME=/usr/tomcat/apache-tomcat-8.5.9
 然后执行如下命令即可：
 
 sudo ./shutdown.sh
+
+tomcat可以访问默认页面,但是无法访问webapp下的指定项目
+conf/web.xml --> tomcat的Web配置文件
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+value改成 true就行
