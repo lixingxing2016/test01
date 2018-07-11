@@ -47,7 +47,7 @@ __你好__
 $$
 \mathbf{V}_1  \times  \mathbf{V}_2
 $$
-
+echo "are you ok"
 
 
 
